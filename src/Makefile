@@ -15,7 +15,7 @@ RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror -lm
 LIBFT	= ../libft/libft.a
 NAME	= so_long
-SRCS	= main.c so_long.c
+SRCS	= main.c so_long.c map.c
 OBJS	= ${SRCS:.c=.o}
 MLXH	= -I /usr/local/include
 MLXS	= -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit

@@ -12,6 +12,7 @@
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
+# define TILE 64 
 
 # include "../libft/libft.h"
 # include <mlx.h>
@@ -20,7 +21,11 @@
 # include <stdio.h>// perror
 # include <string.h>// strerror
 
+// map.c        2 functions
+char	**ft_map(char *av, int *x, int *y);
+
 // so_long.c	1 functions
+void	so_long(void);
 
 // main.c		3 functions
 

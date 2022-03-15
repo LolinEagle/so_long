@@ -12,50 +12,41 @@
 
 #include "so_long.h"
 
-int	ft_mapsize(char *file)
+int	ft_isber(char *av)
 {
 	int		i;
-	int		fd;
-	char	*gnl;
+	int		j;
+	char	*ber;
 
-	i = 1;
-	fd = open(file, O_RDONLY);
-	gnl = get_next_line(fd);
-	while (gnl)
-	{
-		free(gnl);
-		gnl = get_next_line(fd);
+	ber = ".ber";
+	i = 0;
+	while (av[i] && av[i] != '.')
 		i++;
-	}
-	close(fd);
-	free(gnl);
-	return (i);
+	j = 0;
+	while (ber[j] && av[i + j] == ber[j])
+		j++;
+	if (!av[i + j] && ft_strlen(av) > 4)
+		return (1);
+	return (0);
 }
 
-char	**ft_map(char *av)
+void	ft_free(char ***map)
 {
-	int		i;
-	int		fd;
-	char	*file;
-	char	**res;
+	int	i;
 
 	i = 0;
-	file = ft_strjoin("../maps/", av);
-	res = malloc(sizeof(char *) * ft_mapsize(file));
-	fd = open(file, O_RDONLY);
-	res[i] = get_next_line(fd);
-	while (res[i])
+	while (*map[i])
 	{
+		free(*map[i]);
 		i++;
-		res[i] = get_next_line(fd);
 	}
-	close(fd);
-	free(file);
-	return (res);
+	free(*map);
 }
 
 int	main(int ac, char **av)
 {
+	int		x;
+	int		y;
 	char	**map;
 	void	*mlx;
 	void	*win;
@@ -65,11 +56,13 @@ int	main(int ac, char **av)
 		mlx = mlx_init();
 		if (!mlx)
 			return (1);
-		map = ft_map(av[1]);
-		win = mlx_new_window(mlx, 1000, 1000, av[0] + 2);
-		if (!win)
-			return (1);
+		if (!ft_isber(av[1]))
+			return (0);
+		map = ft_map(av[1], &x, &y);
+		win = mlx_new_window(mlx, TILE * x, TILE * y, av[0] + 2);
 		mlx_loop(mlx);
+		mlx_destroy_window(mlx, win);
+		ft_free(&map);
 	}
 	return (0);
 }
