@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC		= cc
-RM		= rm
+RM		= rm -f
 CFLAGS	= -Wall -Wextra -Werror -lm
 LIBFT	= ../libft/libft.a
 NAME	= so_long

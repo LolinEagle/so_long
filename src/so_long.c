@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-void	so_long()
+void	so_long(void)
 {
-	
+	return ;
 }

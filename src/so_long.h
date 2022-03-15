@@ -22,6 +22,6 @@
 
 // so_long.c	1 functions
 
-// main.c		1 functions
+// main.c		3 functions
 
 #endif
