@@ -32,26 +32,23 @@ int	ft_mapsize(char *file)
 	return (i);
 }
 
-char	**ft_map(char *av, int *x, int *y)
+char	**ft_map(char *av, int *w, int *h)
 {
 	int		i;
 	int		fd;
-	char	*file;
 	char	**res;
 
 	i = 0;
-	file = ft_strjoin("../maps/", av);
-	*y = ft_mapsize(file);
-	res = malloc(sizeof(char *) * (*y + 1));
-	fd = open(file, O_RDONLY);
+	*h = ft_mapsize(av);
+	res = malloc(sizeof(char *) * (*h + 1));
+	fd = open(av, O_RDONLY);
 	res[i] = get_next_line(fd);
-	*x = ft_strlen(res[i]);
+	*w = ft_strlen(res[i]);
 	while (res[i])
 	{
 		i++;
 		res[i] = get_next_line(fd);
 	}
 	close(fd);
-	free(file);
 	return (res);
 }

@@ -18,15 +18,19 @@ int	ft_isber(char *av)
 	int		j;
 	char	*ber;
 
+	if (ft_strlen(av) < 4)
+		return (1);
 	ber = ".ber";
 	i = 0;
-	while (av[i] && av[i] != '.')
+	while (av[i])
+	{
+		j = 0;
+		while (ber[j] && av[i + j] == ber[j])
+			j++;
+		if (!av[i + j])
+			return (1);
 		i++;
-	j = 0;
-	while (ber[j] && av[i + j] == ber[j])
-		j++;
-	if (!av[i + j] && ft_strlen(av) > 4)
-		return (1);
+	}
 	return (0);
 }
 
@@ -45,11 +49,11 @@ void	ft_free(char ***map)
 
 int	main(int ac, char **av)
 {
-	int		x;
-	int		y;
-	char	**map;
+	int		w;
+	int		h;
 	void	*mlx;
 	void	*win;
+	char	**map;
 
 	if (ac > 1)
 	{
@@ -58,10 +62,9 @@ int	main(int ac, char **av)
 			return (1);
 		if (!ft_isber(av[1]))
 			return (0);
-		map = ft_map(av[1], &x, &y);
-		win = mlx_new_window(mlx, TILE * x, TILE * y, av[0] + 2);
+		map = ft_map(av[1], &w, &h);
+		win = mlx_new_window(mlx, TILE * w, TILE * h, av[0] + 2);
 		mlx_loop(mlx);
-		mlx_destroy_window(mlx, win);
 		ft_free(&map);
 	}
 	return (0);

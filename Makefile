@@ -5,38 +5,49 @@
 #                                                     +:+ +:+         +:+      #
 #    By: frrusso <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/03/14 11:23:26 by frrusso           #+#    #+#              #
-#    Updated: 2022/03/14 11:23:40 by frrusso          ###   ########.fr        #
+#    Created: 2022/03/17 17:31:14 by frrusso           #+#    #+#              #
+#    Updated: 2022/03/17 17:31:23 by frrusso          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		= cc
 RM		= rm -f
-CFLAGS	= -Wall -Wextra -Werror -lm
-LIBFT	= ../libft/libft.a
 NAME	= so_long
-SRCS	= main.c so_long.c map.c
+SRCS	= $(addprefix ./src/, main.c so_long.c map.c)
 OBJS	= ${SRCS:.c=.o}
-MLXH	= -I /usr/local/include
-MLXS	= -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
+DEPS	= ${SRCS:.c=.d}
+INCDIR	= $(addprefix -I, mlx_linux /usr/include includes libft)
+LIBDIR	= $(addprefix -L, mlx_linux /usr/lib libft)
+CFLAGS	= -Wall -Wextra -Werror -g
+LIBINC	= -lXext -lX11 -lm -lz -lmlx -lft
+LIBMLX	= mlx_linux/libmlx.a
+LIBFT	= libft/libft.q
 
-.c.o:
-	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+%.o: %.c
+	${CC} ${CFLAGS} -MMD -c $< -o $@ ${INCDIR}
 
-${NAME}:${OBJS}
-	${MAKE} -C ../libft
-	${CC} -o ${NAME} ${CFLAGS} ${MLXH} ${OBJS} ${LIBFT} ${MLXS}
+${LIBMLX}:
+	make -s -C mlx_linux
 
-all:${NAME}
+${LIBFT}:
+	make -s -C libft
+
+${NAME}: ${LIBMLX} ${LIBFT} ${OBJS}
+	${CC} ${CFLAGS} ${OBJS} ${LIBDIR} ${LIBINC} -o ${NAME}
+
+all: ${NAME}
 
 clean:
-	${MAKE} clean -C ../libft
-	${RM} ${OBJS}
+	${RM} ${OBJS} ${DEPS}
+	make -C libft clean
 
-fclean:clean
-	${MAKE} fclean -C ../libft
+fclean: clean
 	${RM} ${NAME}
+	make -s -C mlx_linux clean
+	make -C libft fclean
 
-re:fclean all
+re: fclean all
+
+-include ${DEPS}
 
 .PHONY: all clean fclean re
