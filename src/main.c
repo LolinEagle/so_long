@@ -34,6 +34,28 @@ int	ft_isber(char *av)
 	return (0);
 }
 
+void	ft_mlx_new_image(void *mlx, void *win, char **map)
+{
+	int		i;
+	int		j;
+	int		w;
+	int		h;
+	void	*img;
+
+	img = mlx_xpm_file_to_image(mlx, "./assets/sWall.xpm", &w, &h);
+	j = 0;
+	while (map[j])
+	{
+		i = 0;
+		while (map[j][i])
+		{
+			mlx_put_image_to_window(mlx, win, img, TILE * i, TILE * j);
+			i++;
+		}
+		j++;
+	}
+}
+
 void	ft_free(char ***map)
 {
 	int	i;
@@ -64,7 +86,10 @@ int	main(int ac, char **av)
 			return (0);
 		map = ft_map(av[1], &w, &h);
 		win = mlx_new_window(mlx, TILE * w, TILE * h, av[0] + 2);
+		ft_mlx_new_image(mlx, win, map);
+		mlx_string_put(mlx, win, 16, 16, 0x00FFFFFF, "TEST");
 		mlx_loop(mlx);
+		mlx_destroy_window(mlx, win);
 		ft_free(&map);
 	}
 	return (0);
