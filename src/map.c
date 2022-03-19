@@ -32,14 +32,16 @@ int	ft_mapsize(char *file)
 	return (i);
 }
 
-char	*ft_get_next_line(int fd)
+size_t	ft_strlen_gnl(const char *s)
 {
-	char	*res;
+	size_t	i;
 
-	res = get_next_line(fd);
-	// if (res[ft_strlen(res) - 1] == '\n')
-	// 	res[ft_strlen(res) - 1] = '\0';
-	return (res);
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i] && s[i] != '\n')
+		i++;
+	return (i);
 }
 
 char	**ft_map(char *av, int *w, int *h)
@@ -51,23 +53,23 @@ char	**ft_map(char *av, int *w, int *h)
 	*h = ft_mapsize(av);
 	res = malloc(sizeof(char *) * (*h + 1));
 	fd = open(av, O_RDONLY);
-	res[0] = ft_get_next_line(fd);
-	*w = ft_strlen(res[0]);
+	res[0] = get_next_line(fd);
+	*w = ft_strlen_gnl(res[0]);
 	i = 0;
 	while (res[i])
 	{
 		i++;
-		res[i] = ft_get_next_line(fd);
-	// 	if (ft_strlen(res[i]) != (size_t)*w)
-	// 	{
-	// 		while (i >= 0)
-	// 		{
-	// 			free(res[i]);
-	// 			i--;
-	// 		}
-	// 		res = NULL;
-	// 		break ;
-	// 	}
+		res[i] = get_next_line(fd);
+		if (ft_strlen_gnl(res[i]) != (size_t)*w)
+		{
+			while (i >= 0)
+			{
+				free(res[i]);
+				i--;
+			}
+			res = NULL;
+			break ;
+		}
 	}
 	close(fd);
 	return (res);
