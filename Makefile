@@ -25,16 +25,12 @@ LIBINC	= -lXext -lX11 -lm -lz -lmlx -lft
 LIBMLX	= mlx_linux/libmlx.a
 LIBFT	= libft/libft.a
 
-.o:
+%.o:%.c
 	${CC} ${CFLAGS} -MMD -c $< -o $@ ${INCDIR}
 
-${LIBMLX}:
+${NAME}:${OBJS}
 	make -s -C mlx_linux
-
-${LIBFT}:
 	make -s -C libft
-
-${NAME}:${LIBMLX} ${LIBFT} ${OBJS}
 	${CC} ${CFLAGS} ${OBJS} ${LIBDIR} ${LIBINC} -o ${NAME}
 
 all:${NAME}

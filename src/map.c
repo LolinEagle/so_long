@@ -39,8 +39,10 @@ size_t	ft_strlen_gnl(const char *s)
 	if (!s)
 		return (0);
 	i = 0;
-	while (s[i] && s[i] != '\n')
+	while (s[i])
 		i++;
+	if (s[i - 1] == '\n')
+		return (i - 1);
 	return (i);
 }
 
@@ -60,7 +62,7 @@ char	**ft_map(char *av, int *w, int *h)
 	{
 		i++;
 		res[i] = get_next_line(fd);
-		if (ft_strlen_gnl(res[i]) != (size_t)*w)
+		if (i < *h && ft_strlen_gnl(res[i]) != (size_t)*w)
 		{
 			while (i >= 0)
 			{

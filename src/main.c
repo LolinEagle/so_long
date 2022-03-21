@@ -21,17 +21,30 @@ int	ft_isber(char *av)
 	if (ft_strlen(av) < 4)
 		return (1);
 	ber = ".ber";
-	i = 0;
-	while (av[i])
+	i = -1;
+	while (av[++i])
 	{
 		j = 0;
 		while (ber[j] && av[i + j] == ber[j])
 			j++;
 		if (!av[i + j])
 			return (1);
-		i++;
 	}
 	return (0);
+}
+
+void	*ft_img(char c, void **img)
+{
+	if (c == 'E')
+		return (img[0]);
+	else if (c == 'C')
+		return (img[1]);
+	else if (c == 'P')
+		return (img[2]);
+	else if (c == '0')
+		return (img[3]);
+	else
+		return (img[4]);
 }
 
 void	ft_mlx_new_image(void *mlx, void *win, char **map)
@@ -40,33 +53,31 @@ void	ft_mlx_new_image(void *mlx, void *win, char **map)
 	int		j;
 	int		w;
 	int		h;
-	void	*img;
+	void	*img[5];
 
-	img = mlx_xpm_file_to_image(mlx, "./assets/sWall.xpm", &w, &h);
-	j = 0;
-	while (map[j])
+	img[0] = mlx_xpm_file_to_image(mlx, "assets/sExit.xpm", &w, &h);
+	img[1] = mlx_xpm_file_to_image(mlx, "assets/sKey.xpm", &w, &h);
+	img[2] = mlx_xpm_file_to_image(mlx, "assets/sPlayer.xpm", &w, &h);
+	img[3] = mlx_xpm_file_to_image(mlx, "assets/sTile.xpm", &w, &h);
+	img[4] = mlx_xpm_file_to_image(mlx, "assets/sWall.xpm", &w, &h);
+	i = -1;
+	while (map[++i])
 	{
-		i = 0;
-		while (map[j][i])
-		{
-			mlx_put_image_to_window(mlx, win, img, TILE * i, TILE * j);
-			i++;
-		}
-		j++;
+		j = -1;
+		while (map[i][++j] && map[i][j] != '\n')
+			mlx_put_image_to_window(mlx, win, ft_img(map[i][j], img), TILE * j, TILE * i);
 	}
 }
 
-void	ft_free(char ***map)
+void	ft_free(void **mlx, void **win, char ***map)
 {
 	int	i;
 
-	i = 0;
-	while (*map[i])
-	{
+	i = -1;
+	while (*map[++i])
 		free(*map[i]);
-		i++;
-	}
 	free(*map);
+	mlx_destroy_window(*mlx, *win);
 }
 
 int	main(int ac, char **av)
@@ -89,8 +100,7 @@ int	main(int ac, char **av)
 		ft_mlx_new_image(mlx, win, map);
 		mlx_string_put(mlx, win, 16, 16, 0x00FFFFFF, "TEST");
 		mlx_loop(mlx);
-		mlx_destroy_window(mlx, win);
-		ft_free(&map);
+		ft_free(&mlx, &win, &map);
 	}
 	return (0);
 }
