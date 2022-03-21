@@ -22,12 +22,18 @@
 # include <stdio.h>// perror
 # include <string.h>// strerror
 
-// map.c		2 functions
+// ft_map_is_ok.c   1 functions
+int		ft_map_is_ok(char **map, int *w, int *h);
+
+// map.c		    4 functions
 char	**ft_map(char *av, int *w, int *h);
 
-// so_long.c	1 functions
+// graphical.c      2 functions
+void	ft_mlx_new_image(void *mlx, void *win, char **map);
+
+// so_long.c	    1 functions
 void	so_long(void);
 
-// main.c		3 functions
+// main.c		    4 functions
 
 #endif

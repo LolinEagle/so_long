@@ -32,9 +32,9 @@ int	ft_mapsize(char *file)
 	return (i);
 }
 
-size_t	ft_strlen_gnl(const char *s)
+int	ft_strlen_gnl(const char *s)
 {
-	size_t	i;
+	int	i;
 
 	if (!s)
 		return (0);
@@ -44,6 +44,15 @@ size_t	ft_strlen_gnl(const char *s)
 	if (s[i - 1] == '\n')
 		return (i - 1);
 	return (i);
+}
+
+void	*ft_free_map(int i, int fd, char ***map)
+{
+	while (i >= 0)
+		free(*map[i--]);
+	free(*map);
+	close(fd);
+	return (NULL);
 }
 
 char	**ft_map(char *av, int *w, int *h)
@@ -62,17 +71,11 @@ char	**ft_map(char *av, int *w, int *h)
 	{
 		i++;
 		res[i] = get_next_line(fd);
-		if (i < *h && ft_strlen_gnl(res[i]) != (size_t)*w)
-		{
-			while (i >= 0)
-			{
-				free(res[i]);
-				i--;
-			}
-			res = NULL;
-			break ;
-		}
+		if (i < *h && ft_strlen_gnl(res[i]) != *w)
+			return (ft_free_map(i, fd, &res));
 	}
+	if (!ft_map_is_ok(res, w, h))
+		return (ft_free_map(i - 1, fd, &res));
 	close(fd);
 	return (res);
 }
