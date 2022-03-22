@@ -36,13 +36,14 @@ ${NAME}:${OBJS}
 all:${NAME}
 
 clean:
+	make -s -C mlx_linux clean
+	make -s -C libft clean
 	${RM} ${OBJS} ${DEPS}
-	make -C libft clean
 
 fclean:clean
-	${RM} ${NAME}
 	make -s -C mlx_linux clean
-	make -C libft fclean
+	make -s -C libft fclean
+	${RM} ${NAME}
 
 re:fclean all
 

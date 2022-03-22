@@ -22,18 +22,26 @@
 # include <stdio.h>// perror
 # include <string.h>// strerror
 
-// ft_map_is_ok.c   1 functions
-int		ft_map_is_ok(char **map, int *w, int *h);
+typedef struct s_axe
+{
+	int	x;
+	int	y;
+	int	z;
+}		t_axe;
 
-// map.c		    4 functions
-char	**ft_map(char *av, int *w, int *h);
+// ft_map_is_ok.c	4 functions
+int		ft_map_is_ok(char **map, t_axe *wh);
 
-// graphical.c      2 functions
+// map.c			4 functions
+char	**ft_map(char *av, t_axe *wh);
+
+// graphical.c		2 functions
 void	ft_mlx_new_image(void *mlx, void *win, char **map);
 
-// so_long.c	    1 functions
-void	so_long(void);
+// so_long.c		2 functions
+void	so_long(void *mlx, void *win);
 
-// main.c		    4 functions
+// main.c			4 functions
+t_axe	*ft_axenew(void);
 
 #endif

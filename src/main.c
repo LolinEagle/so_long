@@ -33,14 +33,20 @@ int	ft_isber(char *av)
 	return (0);
 }
 
-int	ft_deal_key(int key, void *param)
+t_axe	*ft_axenew(void)
 {
-	(void)param;
-	ft_putchar_fd(key, 1);
-	return (0);
+	t_axe	*res;
+
+	res = malloc(sizeof(t_axe));
+	if (!res)
+		return (NULL);
+	res->x = 0;
+	res->y = 0;
+	res->z = 0;
+	return (res);
 }
 
-void	ft_free(void **mlx, void **win, char ***map)
+void	ft_free(void **mlx, void **win, char ***map, t_axe *wh)
 {
 	int	i;
 
@@ -49,14 +55,12 @@ void	ft_free(void **mlx, void **win, char ***map)
 		free(*map[i]);
 	free(*map);
 	mlx_destroy_window(*mlx, *win);
+	free(wh);
 }
 
-// mlx_expose_hook(win, , );
-// mlx_loop_hook(mlx, , );
 int	main(int ac, char **av)
 {
-	int		w;
-	int		h;
+	t_axe	*wh;
 	void	*mlx;
 	void	*win;
 	char	**map;
@@ -66,15 +70,18 @@ int	main(int ac, char **av)
 		mlx = mlx_init();
 		if (!mlx || !ft_isber(av[1]))
 			return (1);
-		map = ft_map(av[1], &w, &h);
-		if (!map)
+		wh = ft_axenew();
+		map = ft_map(av[1], wh);
+		if (!map || wh->x + wh->y < 8)
+		{
+			free(wh);
 			return (1);
-		win = mlx_new_window(mlx, TILE * w, TILE * h, av[0] + 2);
+		}
+		win = mlx_new_window(mlx, TILE * wh->x, TILE * wh->y, av[0] + 2);
 		ft_mlx_new_image(mlx, win, map);
 		mlx_string_put(mlx, win, 16, 16, 0x00FFFFFF, "TEST");
-		mlx_key_hook(win, ft_deal_key, NULL);
-		mlx_loop(mlx);
-		ft_free(&mlx, &win, &map);
+		so_long(mlx, win);
+		ft_free(&mlx, &win, &map, wh);
 	}
 	return (0);
 }
