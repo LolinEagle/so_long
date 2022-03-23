@@ -44,13 +44,20 @@ int	ft_strlen_gnl(const char *s)
 	return (i);
 }
 
-void	*ft_free_map(int i, int fd, char **map)
+char	**ft_file(int fd)
+{
+	close(fd);
+	write(1, "Error\nYour map doesn't exist\n", 29);
+	return (NULL);
+}
+
+char	**ft_free_map(int i, int fd, char **map)
 {
 	while (i >= 0)
 		free(map[i--]);
 	free(map);
 	close(fd);
-	write(1, "Error\nYour map doesn't respect the rules set\n", 46);
+	write(1, "Error\nYour map doesn't respect the rules set\n", 45);
 	return (NULL);
 }
 
@@ -62,7 +69,7 @@ char	**ft_map(char *av, t_axe *wh)
 
 	fd = open(av, O_RDONLY);
 	if (read(fd, NULL, 0) < 0)
-		return (NULL);
+		return (ft_file(fd));
 	wh->y = ft_mapsize(av);
 	res = malloc(sizeof(char *) * (wh->y + 1));
 	res[0] = get_next_line(fd);

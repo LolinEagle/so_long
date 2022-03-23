@@ -15,14 +15,16 @@
 int	ft_deal_key(int key, void *param)
 {
 	(void)param;
-	ft_putchar_fd(key, 1);
+	if (key == ESC)
+		ft_free(NULL, NULL, NULL);
+	else
+		ft_putchar_fd(key, 1);
 	return (0);
 }
 
-// mlx_expose_hook(win, , );
-// mlx_loop_hook(mlx, , );
-void	so_long(void *mlx, void *win)
+void	so_long(void *mlx, void *win, char ***map)
 {
+	(void)map;
 	mlx_key_hook(win, ft_deal_key, NULL);
 	mlx_loop(mlx);
 }
@@ -37,11 +39,8 @@ void	so_long(void *mlx, void *win)
 // • Le joueur ne doit pas pouvoir se déplacer dans les murs.
 // • À chaque mouvement, le compte total de mouvement
 // doit être affiché dans le  shell.
-// • Vous devez utiliser une vue 2D (vue de haut ou de profil).
-// • Le jeu n’a pas à être en temps réel.
 // • Bien que les exemples donnés montrent un thème dauphin,
 // vous êtes libre de créer l’univers que vous voulez.
-
 // • Appuyer sur la touche ESC doit fermer la fenêtre
 // et quitter le programme proprement.
 // • Cliquer sur la croix en haut de la fenêtre doit fermer

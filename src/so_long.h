@@ -14,6 +14,15 @@
 # define SO_LONG_H
 
 # define TILE 128
+# define ESC 65307
+# define UP 65362
+# define DOWN 65364
+# define RIGHT 65363
+# define LEFT 65361
+# define W 119
+# define A 97
+# define S 115
+# define D 100
 
 # include "../libft/libft.h"
 # include <mlx.h>
@@ -32,16 +41,19 @@ typedef struct s_axe
 // ft_map_is_ok.c	4 functions
 int		ft_map_is_ok(char **map, t_axe *wh);
 
-// map.c			4 functions
+// map.c			5 functions
 char	**ft_map(char *av, t_axe *wh);
 
 // graphical.c		2 functions
 void	ft_mlx_new_image(void *mlx, void *win, char **map);
 
 // so_long.c		2 functions
-void	so_long(void *mlx, void *win);
+void	so_long(void *mlx, void *win, char ***map);
 
-// main.c			4 functions
+// ft_main.c		2 functions
 t_axe	*ft_axenew(void);
+void	ft_free(void *mlx, void *win, char **map);
+
+// main.c			3 functions
 
 #endif

@@ -13,7 +13,8 @@
 CC		= cc
 RM		= rm -f
 NAME	= so_long
-SRCS	= $(addprefix ./src/, main.c so_long.c map.c graphical.c ft_map_is_ok.c)
+SRCS	= $(addprefix src/, main.c ft_main.c so_long.c map.c graphical.c \
+			ft_map_is_ok.c)
 OBJS	= ${SRCS:.c=.o}
 DEPS	= ${SRCS:.c=.d}
 MLXH	= -I /usr/local/include

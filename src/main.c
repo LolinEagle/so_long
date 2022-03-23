@@ -19,7 +19,7 @@ int	ft_isber(char *av)
 	char	*ber;
 
 	if (ft_strlen(av) < 4)
-		return (1);
+		return (write(1, "Not a valid .ber file.\n", 23));
 	ber = ".ber";
 	i = -1;
 	while (av[++i])
@@ -28,60 +28,43 @@ int	ft_isber(char *av)
 		while (ber[j] && av[i + j] == ber[j])
 			j++;
 		if (!av[i + j])
-			return (1);
+			return (0);
 	}
-	return (0);
+	return (write(1, "Not a valid .ber file.\n", 23));
 }
 
-t_axe	*ft_axenew(void)
+int	ft_ismap(t_axe **wh, char ***map, char *av)
 {
-	t_axe	*res;
-
-	res = malloc(sizeof(t_axe));
-	if (!res)
-		return (NULL);
-	res->x = 0;
-	res->y = 0;
-	res->z = 0;
-	return (res);
-}
-
-void	ft_free(void **mlx, void **win, char ***map, t_axe *wh)
-{
-	int	i;
-
-	i = -1;
-	while (*map[++i])
-		free(*map[i]);
-	free(*map);
-	mlx_destroy_window(*mlx, *win);
-	free(wh);
+	*wh = ft_axenew();
+	*map = ft_map(av, *wh);
+	if (!*map)
+	{
+		free(*wh);
+		return (0);
+	}
+	return (1);
 }
 
 int	main(int ac, char **av)
 {
-	t_axe	*wh;
 	void	*mlx;
 	void	*win;
+	t_axe	*wh;
 	char	**map;
 
 	if (ac > 1)
 	{
 		mlx = mlx_init();
-		if (!mlx || !ft_isber(av[1]))
+		if (!mlx || ft_isber(av[1]))
 			return (1);
-		wh = ft_axenew();
-		map = ft_map(av[1], wh);
-		if (!map || wh->x + wh->y < 8)
-		{
-			free(wh);
+		if (!ft_ismap(&wh, &map, av[1]))
 			return (1);
-		}
 		win = mlx_new_window(mlx, TILE * wh->x, TILE * wh->y, av[0] + 2);
+		free(wh);
 		ft_mlx_new_image(mlx, win, map);
-		mlx_string_put(mlx, win, 16, 16, 0x00FFFFFF, "TEST");
-		so_long(mlx, win);
-		ft_free(&mlx, &win, &map, wh);
+		so_long(mlx, win, &map);
 	}
+	else
+		write(1, "Usage : ./so_long <mapfile.ber>\n", 32);
 	return (0);
 }
