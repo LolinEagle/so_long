@@ -63,8 +63,10 @@ int	main(int ac, char **av)
 			return (ft_free_mlx(mlx));
 		win = mlx_new_window(mlx, TILE * wh->x, TILE * wh->y, av[0] + 2);
 		free(wh);
+		if (!win)
+			return (ft_free(mlx, win, map));
 		ft_mlx_new_image(mlx, win, map);
-		so_long(mlx, win, map);
+		return (so_long(mlx, win, map));
 	}
 	else
 		write(1, "Usage : ./so_long <mapfile.ber>\n", 32);

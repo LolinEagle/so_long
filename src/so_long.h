@@ -16,9 +16,9 @@
 # define TILE 128
 # define ESC 65307
 # define UP 65362
+# define LEFT 65361
 # define DOWN 65364
 # define RIGHT 65363
-# define LEFT 65361
 # define W 119
 # define A 97
 # define S 115
@@ -26,10 +26,7 @@
 
 # include "../libft/libft.h"
 # include <mlx.h>
-# include <math.h>
 # include <fcntl.h>// open
-# include <stdio.h>// perror
-# include <string.h>// strerror
 
 typedef struct s_axe
 {
@@ -38,22 +35,29 @@ typedef struct s_axe
 	int	z;
 }		t_axe;
 
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	char	**map;
+}			t_mlx;
+
+// ft_graphical.c	2 functions
+void	ft_mlx_new_image(void *mlx, void *win, char **map);
+
 // ft_map_is_ok.c	5 functions
 int		ft_map_is_ok(char **map, t_axe *wh);
 
 // ft_map.c			5 functions
 char	**ft_map(char *av, t_axe *wh);
 
-// ft_graphical.c		2 functions
-void	ft_mlx_new_image(void *mlx, void *win, char **map);
-
-// so_long.c		2 functions
-void	so_long(void *mlx, void *win, char **map);
+// so_long.c		3 functions
+int		so_long(void *mlx, void *win, char **map);
 
 // ft_main.c		3 functions
 t_axe	*ft_axenew(void);
 int		ft_free_mlx(void *mlx);
-void	ft_free(void *mlx, void *win, char **map);
+int		ft_free(void *mlx, void *win, char **map);
 
 // main.c			3 functions
 

@@ -32,7 +32,7 @@ int	ft_free_mlx(void *mlx)
 	return (1);
 }
 
-void	ft_free(void *mlx, void *win, char **map)
+int	ft_free(void *mlx, void *win, char **map)
 {
 	int	i;
 
@@ -44,8 +44,8 @@ void	ft_free(void *mlx, void *win, char **map)
 		free(map);
 	}
 	if (mlx && win)
-	{
 		mlx_destroy_window(mlx, win);
+	if (mlx)
 		ft_free_mlx(mlx);
-	}
+	return (1);
 }
