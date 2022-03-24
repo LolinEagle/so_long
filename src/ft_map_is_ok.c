@@ -43,6 +43,12 @@ void	ft_at_less(t_axe *ecp, char c)
 		ecp->z++;
 }
 
+int	ft_free_ecp(t_axe *ecp)
+{
+	free(ecp);
+	return (0);
+}
+
 int	ft_map_is_ok(char **map, t_axe *wh)
 {
 	int		i;
@@ -57,12 +63,12 @@ int	ft_map_is_ok(char **map, t_axe *wh)
 		while (map[i][++j] && map[i][j] != '\n')
 		{
 			if (!ft_wall(i, j, wh, map[i][j]) || !ft_traits(map[i][j]))
-				return (0);
+				return (ft_free_ecp(ecp));
 			ft_at_less(ecp, map[i][j]);
 		}
 	}
 	if (ecp->x == 0 || ecp->y == 0 || ecp->z != 1)
-		return (0);
+		return (ft_free_ecp(ecp));
 	free(ecp);
 	return (1);
 }

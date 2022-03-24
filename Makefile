@@ -13,7 +13,7 @@
 CC		= cc
 RM		= rm -f
 NAME	= so_long
-SRCS	= $(addprefix src/, main.c ft_main.c so_long.c map.c graphical.c \
+SRCS	= $(addprefix src/, main.c ft_main.c so_long.c ft_map.c ft_graphical.c \
 			ft_map_is_ok.c)
 OBJS	= ${SRCS:.c=.o}
 DEPS	= ${SRCS:.c=.d}
@@ -37,7 +37,6 @@ ${NAME}:${OBJS}
 all:${NAME}
 
 clean:
-	make -s -C mlx_linux clean
 	make -s -C libft clean
 	${RM} ${OBJS} ${DEPS}
 

@@ -12,21 +12,20 @@
 
 #include "so_long.h"
 
-int	ft_deal_key(int key, void *param)
+int	ft_deal_key(int key, void *mlx)
 {
-	(void)param;
 	if (key == ESC)
-		ft_free(NULL, NULL, NULL);
+		mlx_loop_end(mlx);
 	else
 		ft_putchar_fd(key, 1);
 	return (0);
 }
 
-void	so_long(void *mlx, void *win, char ***map)
+void	so_long(void *mlx, void *win, char **map)
 {
-	(void)map;
-	mlx_key_hook(win, ft_deal_key, NULL);
+	mlx_key_hook(win, ft_deal_key, mlx);
 	mlx_loop(mlx);
+	ft_free(mlx, win, map);
 }
 
 // • Le but du joueur est de collecter tous les items

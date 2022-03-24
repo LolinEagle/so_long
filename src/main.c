@@ -54,15 +54,17 @@ int	main(int ac, char **av)
 
 	if (ac > 1)
 	{
+		if (ft_isber(av[1]))
+			return (1);
 		mlx = mlx_init();
-		if (!mlx || ft_isber(av[1]))
+		if (!mlx)
 			return (1);
 		if (!ft_ismap(&wh, &map, av[1]))
-			return (1);
+			return (ft_free_mlx(mlx));
 		win = mlx_new_window(mlx, TILE * wh->x, TILE * wh->y, av[0] + 2);
 		free(wh);
 		ft_mlx_new_image(mlx, win, map);
-		so_long(mlx, win, &map);
+		so_long(mlx, win, map);
 	}
 	else
 		write(1, "Usage : ./so_long <mapfile.ber>\n", 32);

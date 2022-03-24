@@ -25,6 +25,13 @@ t_axe	*ft_axenew(void)
 	return (res);
 }
 
+int	ft_free_mlx(void *mlx)
+{
+	mlx_destroy_display(mlx);
+	free(mlx);
+	return (1);
+}
+
 void	ft_free(void *mlx, void *win, char **map)
 {
 	int	i;
@@ -37,6 +44,8 @@ void	ft_free(void *mlx, void *win, char **map)
 		free(map);
 	}
 	if (mlx && win)
+	{
 		mlx_destroy_window(mlx, win);
-	exit(0);
+		ft_free_mlx(mlx);
+	}
 }

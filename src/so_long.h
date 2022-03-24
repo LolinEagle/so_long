@@ -38,20 +38,21 @@ typedef struct s_axe
 	int	z;
 }		t_axe;
 
-// ft_map_is_ok.c	4 functions
+// ft_map_is_ok.c	5 functions
 int		ft_map_is_ok(char **map, t_axe *wh);
 
-// map.c			5 functions
+// ft_map.c			5 functions
 char	**ft_map(char *av, t_axe *wh);
 
-// graphical.c		2 functions
+// ft_graphical.c		2 functions
 void	ft_mlx_new_image(void *mlx, void *win, char **map);
 
 // so_long.c		2 functions
-void	so_long(void *mlx, void *win, char ***map);
+void	so_long(void *mlx, void *win, char **map);
 
-// ft_main.c		2 functions
+// ft_main.c		3 functions
 t_axe	*ft_axenew(void);
+int		ft_free_mlx(void *mlx);
 void	ft_free(void *mlx, void *win, char **map);
 
 // main.c			3 functions

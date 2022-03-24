@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   ft_map.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -54,7 +54,10 @@ char	**ft_file(int fd)
 char	**ft_free_map(int i, int fd, char **map)
 {
 	while (i >= 0)
-		free(map[i--]);
+	{
+		free(map[i]);
+		i--;
+	}
 	free(map);
 	close(fd);
 	write(1, "Error\nYour map doesn't respect the rules set\n", 45);
@@ -64,6 +67,7 @@ char	**ft_free_map(int i, int fd, char **map)
 char	**ft_map(char *av, t_axe *wh)
 {
 	int		i;
+	int		j;
 	int		fd;
 	char	**res;
 
@@ -74,16 +78,17 @@ char	**ft_map(char *av, t_axe *wh)
 	res = malloc(sizeof(char *) * (wh->y + 1));
 	res[0] = get_next_line(fd);
 	wh->x = ft_strlen_gnl(res[0]);
+	j = 0;
 	i = 0;
 	while (res[i])
 	{
 		i++;
 		res[i] = get_next_line(fd);
 		if (i < wh->y && ft_strlen_gnl(res[i]) != wh->x)
-			return (ft_free_map(i, fd, res));
+			j = 1;
 	}
-	if (!ft_map_is_ok(res, wh))
-		return (ft_free_map(i - 1, fd, res));
+	if (j || !ft_map_is_ok(res, wh))
+		return (ft_free_map(i, fd, res));
 	close(fd);
 	return (res);
 }
