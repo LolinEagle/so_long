@@ -23,6 +23,9 @@
 # define A 97
 # define S 115
 # define D 100
+# define X 0
+# define Y 1
+# define C 2
 
 # include "../libft/libft.h"
 # include <mlx.h>
@@ -40,6 +43,7 @@ typedef struct s_mlx
 	void	*mlx;
 	void	*win;
 	char	**map;
+	int		*pxy;
 }			t_mlx;
 
 // ft_graphical.c	2 functions
@@ -51,7 +55,13 @@ int		ft_map_is_ok(char **map, t_axe *wh);
 // ft_map.c			5 functions
 char	**ft_map(char *av, t_axe *wh);
 
-// so_long.c		3 functions
+// ft_move.c		5 functions
+void	ft_move_up(char *sc, t_mlx *mlx, int *i, void **img);
+void	ft_move_left(char *sc, t_mlx *mlx, int *i, void **img);
+void	ft_move_down(char *sc, t_mlx *mlx, int *i, void **img);
+void	ft_move_right(char *sc, t_mlx *mlx, int *i, void **img);
+
+// so_long.c		5 functions
 int		so_long(void *mlx, void *win, char **map);
 
 // ft_main.c		3 functions
