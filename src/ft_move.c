@@ -12,71 +12,81 @@
 
 #include "so_long.h"
 
-void	ft_move(char *sc, t_mlx *mlx, int *i, void **img)
+void	ft_move(char *sc, t_mlx *mlx, int *i)
 {
+	char	*str;
+
 	ft_printf("%i\n", ++*i);
+	str = ft_itoa(*i);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[3], 0, 0);
+	mlx_string_put(mlx->mlx, mlx->win, 36, 36, 0xFFFFFFFF, str);
+	free(str);
 	if (*sc == 'E')
-		mlx_put_image_to_window(mlx->mlx, mlx->win, img[0],
+		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[0],
 			TILE * mlx->pxy[X], TILE * mlx->pxy[Y]);
 	else if (*sc == 'C')
 	{
-		mlx_put_image_to_window(mlx->mlx, mlx->win, img[2],
+		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[2],
 			TILE * mlx->pxy[X], TILE * mlx->pxy[Y]);
-		mlx->map[Y][X] = '0';
+		mlx->map[mlx->pxy[Y]][mlx->pxy[X]] = '0';
 	}
 	else
-		mlx_put_image_to_window(mlx->mlx, mlx->win, img[2],
+		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[2],
 			TILE * mlx->pxy[X], TILE * mlx->pxy[Y]);
 }
 
-void	ft_move_up(char *sc, t_mlx *mlx, int *i, void **img)
+int	ft_move_up(char *sc, t_mlx *mlx, int *i)
 {
-	ft_move(sc, mlx, i, img);
+	ft_move(sc, mlx, i);
 	*sc = mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]];
 	if (mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]] == 'C')
 		mlx->pxy[C]--;
-	else if (mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]] == 'E' && mlx->pxy == 0)
-		mlx_loop_end(mlx->mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, img[1],
+	else if (mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]] == 'E' && mlx->pxy[2] == 0)
+		return (1);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[1],
 		TILE * (mlx->pxy[X]), TILE * (mlx->pxy[Y] - 1));
 	mlx->pxy[Y]--;
+	return (0);
 }
 
-void	ft_move_left(char *sc, t_mlx *mlx, int *i, void **img)
+int	ft_move_left(char *sc, t_mlx *mlx, int *i)
 {
-	ft_move(sc, mlx, i, img);
+	ft_move(sc, mlx, i);
 	*sc = mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1];
 	if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1] == 'C')
 		mlx->pxy[C]--;
-	else if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1] == 'E' && mlx->pxy == 0)
-		mlx_loop_end(mlx->mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, img[1],
+	else if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1] == 'E' && mlx->pxy[2] == 0)
+		return (1);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[1],
 		TILE * (mlx->pxy[X] - 1), TILE * mlx->pxy[Y]);
 	mlx->pxy[X]--;
+	return (0);
 }
 
-void	ft_move_down(char *sc, t_mlx *mlx, int *i, void **img)
+int	ft_move_down(char *sc, t_mlx *mlx, int *i)
 {
-	ft_move(sc, mlx, i, img);
+	ft_move(sc, mlx, i);
 	*sc = mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]];
 	if (mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]] == 'C')
 		mlx->pxy[C]--;
-	else if (mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]] == 'E' && mlx->pxy == 0)
-		mlx_loop_end(mlx->mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, img[1],
+	else if (mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]] == 'E' && mlx->pxy[2] == 0)
+		return (1);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[1],
 		TILE * mlx->pxy[X], TILE * (mlx->pxy[Y] + 1));
 	mlx->pxy[Y]++;
+	return (0);
 }
 
-void	ft_move_right(char *sc, t_mlx *mlx, int *i, void **img)
+int	ft_move_right(char *sc, t_mlx *mlx, int *i)
 {
-	ft_move(sc, mlx, i, img);
+	ft_move(sc, mlx, i);
 	*sc = mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1];
 	if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1] == 'C')
 		mlx->pxy[C]--;
-	else if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1] == 'E' && mlx->pxy == 0)
-		mlx_loop_end(mlx->mlx);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, img[1],
+	else if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1] == 'E' && mlx->pxy[2] == 0)
+		return (1);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[1],
 		TILE * (mlx->pxy[X] + 1), TILE * mlx->pxy[Y]);
 	mlx->pxy[X]++;
+	return (0);
 }

@@ -25,6 +25,53 @@ t_axe	*ft_axenew(void)
 	return (res);
 }
 
+int	*ft_findplayer(char **map)
+{
+	int	i;
+	int	j;
+	int	*res;
+
+	res = malloc(sizeof(int) * 3);
+	if (!res)
+		return (NULL);
+	res[2] = 0;
+	i = 0;
+	while (map[++i])
+	{
+		j = 0;
+		while (map[i][++j] && map[i][j] != '\n')
+		{
+			if (map[i][j] == 'C')
+				res[2]++;
+			if (map[i][j] == 'P')
+			{
+				res[1] = i;
+				res[0] = j;
+			}
+		}
+	}
+	return (res);
+}
+
+t_mlx	*ft_mlxnew(void *mlx, void *win, char **map)
+{
+	t_mlx	*res;
+	int		nul;
+
+	res = malloc(sizeof(t_mlx));
+	if (!res)
+		return (NULL);
+	res->mlx = mlx;
+	res->win = win;
+	res->map = map;
+	res->pxy = ft_findplayer(map);
+	res->img[0] = mlx_xpm_file_to_image(mlx, "assets/sExit.xpm", &nul, &nul);
+	res->img[1] = mlx_xpm_file_to_image(mlx, "assets/sPlayer.xpm", &nul, &nul);
+	res->img[2] = mlx_xpm_file_to_image(mlx, "assets/sTile.xpm", &nul, &nul);
+	res->img[3] = mlx_xpm_file_to_image(mlx, "assets/sWall.xpm", &nul, &nul);
+	return (res);
+}
+
 int	ft_free_mlx(void *mlx)
 {
 	mlx_destroy_display(mlx);

@@ -47,7 +47,7 @@ void	ft_mlx_new_image(void *mlx, void *win, char **map)
 			mlx_put_image_to_window(
 				mlx, win, ft_img(map[i][j], img), TILE * j, TILE * i);
 	}
-	mlx_string_put(mlx, win, 32, 32, 0xFFFFFFFF, "Movement Count : ");
+	mlx_string_put(mlx, win, 36, 36, 0xFFFFFFFF, "0");
 	i = 4;
 	while (i >= 0)
 		mlx_destroy_image(mlx, img[i--]);

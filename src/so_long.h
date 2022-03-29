@@ -42,6 +42,7 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
+	void	*img[4];
 	char	**map;
 	int		*pxy;
 }			t_mlx;
@@ -56,16 +57,17 @@ int		ft_map_is_ok(char **map, t_axe *wh);
 char	**ft_map(char *av, t_axe *wh);
 
 // ft_move.c		5 functions
-void	ft_move_up(char *sc, t_mlx *mlx, int *i, void **img);
-void	ft_move_left(char *sc, t_mlx *mlx, int *i, void **img);
-void	ft_move_down(char *sc, t_mlx *mlx, int *i, void **img);
-void	ft_move_right(char *sc, t_mlx *mlx, int *i, void **img);
+int		ft_move_up(char *sc, t_mlx *mlx, int *i);
+int		ft_move_left(char *sc, t_mlx *mlx, int *i);
+int		ft_move_down(char *sc, t_mlx *mlx, int *i);
+int		ft_move_right(char *sc, t_mlx *mlx, int *i);
 
-// so_long.c		5 functions
+// so_long.c		4 functions
 int		so_long(void *mlx, void *win, char **map);
 
-// ft_main.c		3 functions
+// ft_main.c		5 functions
 t_axe	*ft_axenew(void);
+t_mlx	*ft_mlxnew(void *mlx, void *win, char **map);
 int		ft_free_mlx(void *mlx);
 int		ft_free(void *mlx, void *win, char **map);
 
