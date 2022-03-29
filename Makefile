@@ -19,18 +19,18 @@ OBJS	= ${SRCS:.c=.o}
 DEPS	= ${SRCS:.c=.d}
 MLXH	= -I /usr/local/include
 MLXS	= -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
-INCDIR	= $(addprefix -I, mlx_linux /usr/include includes libft)
-LIBDIR	= $(addprefix -L, mlx_linux /usr/lib libft)
+INCDIR	= $(addprefix -I, libmlx /usr/include includes libft)
+LIBDIR	= $(addprefix -L, libmlx /usr/lib libft)
 CFLAGS	= -Wall -Wextra -Werror -g
 LIBINC	= -lXext -lX11 -lm -lz -lmlx -lft
-LIBMLX	= mlx_linux/libmlx.a
+LIBMLX	= libmlx/libmlx.a
 LIBFT	= libft/libft.a
 
 %.o:%.c
 	${CC} ${CFLAGS} -MMD -c $< -o $@ ${INCDIR}
 
 ${NAME}:${OBJS}
-	make -s -C mlx_linux
+	make -s -C libmlx
 	make -s -C libft
 	${CC} ${CFLAGS} ${OBJS} ${LIBDIR} ${LIBINC} -o ${NAME}
 
@@ -41,7 +41,7 @@ clean:
 	${RM} ${OBJS} ${DEPS}
 
 fclean:clean
-	make -s -C mlx_linux clean
+	make -s -C libmlx clean
 	make -s -C libft fclean
 	${RM} ${NAME}
 
