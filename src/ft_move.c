@@ -19,7 +19,7 @@ void	ft_move(char *sc, t_mlx *mlx, int *i)
 	ft_printf("%i\n", ++*i);
 	str = ft_itoa(*i);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[3], 0, 0);
-	mlx_string_put(mlx->mlx, mlx->win, 36, 36, 0xFFFFFFFF, str);
+	ft_mlx_string_put(mlx->mlx, mlx->win, str);
 	free(str);
 	if (*sc == 'E')
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[0],

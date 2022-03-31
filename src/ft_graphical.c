@@ -12,6 +12,15 @@
 
 #include "so_long.h"
 
+void	ft_mlx_string_put(void *mlx, void *win, char *str)
+{
+	mlx_string_put(mlx, win, 28 - 1, 36 - 1, 0xFF000000, str);
+	mlx_string_put(mlx, win, 28 + 1, 36 - 1, 0xFF000000, str);
+	mlx_string_put(mlx, win, 28 - 1, 36 + 1, 0xFF000000, str);
+	mlx_string_put(mlx, win, 28 + 1, 36 + 1, 0xFF000000, str);
+	mlx_string_put(mlx, win, 28, 36, 0xFFFFFFFF, str);
+}
+
 void	*ft_img(char c, void **img)
 {
 	if (c == 'E')
@@ -47,7 +56,7 @@ void	ft_mlx_new_image(void *mlx, void *win, char **map)
 			mlx_put_image_to_window(
 				mlx, win, ft_img(map[i][j], img), TILE * j, TILE * i);
 	}
-	mlx_string_put(mlx, win, 36, 36, 0xFFFFFFFF, "0");
+	ft_mlx_string_put(mlx, win, "0");
 	i = 4;
 	while (i >= 0)
 		mlx_destroy_image(mlx, img[i--]);

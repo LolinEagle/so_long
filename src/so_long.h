@@ -47,7 +47,8 @@ typedef struct s_mlx
 	int		*pxy;
 }			t_mlx;
 
-// ft_graphical.c	2 functions
+// ft_graphical.c	3 functions
+void	ft_mlx_string_put(void *mlx, void *win, char *str);
 void	ft_mlx_new_image(void *mlx, void *win, char **map);
 
 // ft_map_is_ok.c	5 functions
