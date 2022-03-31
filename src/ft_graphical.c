@@ -35,7 +35,7 @@ void	*ft_img(char c, void **img)
 		return (img[4]);
 }
 
-void	ft_mlx_new_image(void *mlx, void *win, char **map)
+int	ft_mlx_new_image(void *mlx, void *win, char **map)
 {
 	int		i;
 	int		j;
@@ -44,10 +44,12 @@ void	ft_mlx_new_image(void *mlx, void *win, char **map)
 	void	*img[5];
 
 	img[0] = mlx_xpm_file_to_image(mlx, "assets/sExit.xpm", &w, &h);
-	img[1] = mlx_xpm_file_to_image(mlx, "assets/sKey.xpm", &w, &h);
-	img[2] = mlx_xpm_file_to_image(mlx, "assets/sPlayer.xpm", &w, &h);
-	img[3] = mlx_xpm_file_to_image(mlx, "assets/sTile.xpm", &w, &h);
-	img[4] = mlx_xpm_file_to_image(mlx, "assets/sWall.xpm", &w, &h);
+	if (!img[0])
+		return (1);
+	// img[1] = mlx_xpm_file_to_image(mlx, "assets/sKey.xpm", &w, &h);
+	// img[2] = mlx_xpm_file_to_image(mlx, "assets/sPlayer.xpm", &w, &h);
+	// img[3] = mlx_xpm_file_to_image(mlx, "assets/sTile.xpm", &w, &h);
+	// img[4] = mlx_xpm_file_to_image(mlx, "assets/sWall.xpm", &w, &h);
 	i = -1;
 	while (map[++i])
 	{
@@ -60,4 +62,5 @@ void	ft_mlx_new_image(void *mlx, void *win, char **map)
 	i = 4;
 	while (i >= 0)
 		mlx_destroy_image(mlx, img[i--]);
+	return (0);
 }

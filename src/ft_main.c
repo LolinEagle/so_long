@@ -66,6 +66,8 @@ t_mlx	*ft_mlxnew(void *mlx, void *win, char **map)
 	res->map = map;
 	res->pxy = ft_findplayer(map);
 	res->img[0] = mlx_xpm_file_to_image(mlx, "assets/sExit.xpm", &nul, &nul);
+	if (!img[0])
+		return (NULL);
 	res->img[1] = mlx_xpm_file_to_image(mlx, "assets/sPlayer.xpm", &nul, &nul);
 	res->img[2] = mlx_xpm_file_to_image(mlx, "assets/sTile.xpm", &nul, &nul);
 	res->img[3] = mlx_xpm_file_to_image(mlx, "assets/sWall.xpm", &nul, &nul);

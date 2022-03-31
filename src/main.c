@@ -12,6 +12,12 @@
 
 #include "so_long.h"
 
+void	ft_argc(int ac)
+{
+	if (ac > 2)
+		write(1, "Warning\nOnly the first argument while be used.\n", 47);
+}
+
 int	ft_isber(char *av)
 {
 	int		i;
@@ -45,6 +51,20 @@ int	ft_ismap(t_axe **wh, char ***map, char *av)
 	return (1);
 }
 
+void	*ft_win(void *mlx, t_axe *wh)
+{
+	int		sizex;
+	int		sizey;
+	void	*res;
+
+	res = mlx_new_window(mlx, TILE * wh->x, TILE * wh->y, "so_long");
+	mlx_get_screen_size(mlx, &sizex, &sizey);
+	if (sizex < TILE * wh->x || sizey < TILE * wh->y)
+		write(1, "Warning\nYouy map is too big.\n", 29);
+	free(wh);
+	return (res);
+}
+
 int	main(int ac, char **av)
 {
 	void	*mlx;
@@ -54,6 +74,7 @@ int	main(int ac, char **av)
 
 	if (ac > 1)
 	{
+		ft_argc(ac);
 		if (ft_isber(av[1]))
 			return (1);
 		mlx = mlx_init();
@@ -61,11 +82,11 @@ int	main(int ac, char **av)
 			return (1);
 		if (!ft_ismap(&wh, &map, av[1]))
 			return (ft_free_mlx(mlx));
-		win = mlx_new_window(mlx, TILE * wh->x, TILE * wh->y, av[0] + 2);
-		free(wh);
+		win = ft_win(mlx, wh);
 		if (!win)
 			return (ft_free(mlx, win, map));
-		ft_mlx_new_image(mlx, win, map);
+		if (ft_mlx_new_image(mlx, win, map))
+			return (1);
 		return (so_long(mlx, win, map));
 	}
 	else
