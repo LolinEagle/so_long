@@ -86,7 +86,7 @@ int	main(int ac, char **av)
 		if (!win)
 			return (ft_free(mlx, win, map));
 		if (ft_mlx_new_image(mlx, win, map))
-			return (1);
+			return (ft_free(mlx, win, map));
 		return (so_long(mlx, win, map));
 	}
 	else

@@ -52,6 +52,12 @@ int	ft_close(void *mlx)
 	return (0);
 }
 
+int	ft_sprite_animations(t_mlx *mlx)
+{
+	(void)mlx;
+	return (0);
+}
+
 int	so_long(void *mlx, void *win, char **map)
 {
 	t_mlx	*so_long;
@@ -61,11 +67,9 @@ int	so_long(void *mlx, void *win, char **map)
 		return (ft_free(mlx, win, map));
 	mlx_key_hook(win, ft_deal_key, so_long);
 	mlx_hook(win, 17, 0, ft_close, mlx);
+	mlx_loop_hook(mlx, ft_sprite_animations, so_long);
 	mlx_loop(mlx);
-	mlx_destroy_image(so_long->mlx, so_long->img[0]);
-	mlx_destroy_image(so_long->mlx, so_long->img[1]);
-	mlx_destroy_image(so_long->mlx, so_long->img[2]);
-	mlx_destroy_image(so_long->mlx, so_long->img[3]);
+	ft_mlx_destroy_image(so_long->mlx, so_long->img, 3);
 	free(so_long->pxy);
 	free(so_long);
 	ft_free(mlx, win, map);

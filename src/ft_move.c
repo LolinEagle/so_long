@@ -41,6 +41,8 @@ int	ft_move_up(char *sc, t_mlx *mlx, int *i)
 	*sc = mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]];
 	if (mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]] == 'C')
 		mlx->pxy[C]--;
+	else if (mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]] == 'X')
+		return (1);
 	else if (mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]] == 'E' && mlx->pxy[2] == 0)
 		return (1);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[1],
@@ -55,6 +57,8 @@ int	ft_move_left(char *sc, t_mlx *mlx, int *i)
 	*sc = mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1];
 	if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1] == 'C')
 		mlx->pxy[C]--;
+	else if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1] == 'X')
+		return (1);
 	else if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1] == 'E' && mlx->pxy[2] == 0)
 		return (1);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[1],
@@ -69,6 +73,8 @@ int	ft_move_down(char *sc, t_mlx *mlx, int *i)
 	*sc = mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]];
 	if (mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]] == 'C')
 		mlx->pxy[C]--;
+	else if (mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]] == 'X')
+		return (1);
 	else if (mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]] == 'E' && mlx->pxy[2] == 0)
 		return (1);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[1],
@@ -83,6 +89,8 @@ int	ft_move_right(char *sc, t_mlx *mlx, int *i)
 	*sc = mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1];
 	if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1] == 'C')
 		mlx->pxy[C]--;
+	else if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1] == 'X')
+		return (1);
 	else if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1] == 'E' && mlx->pxy[2] == 0)
 		return (1);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[1],
