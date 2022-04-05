@@ -35,6 +35,8 @@ void	*ft_img(char c, void **img)
 		return (img[2]);
 	else if (c == '0')
 		return (img[3]);
+	else if (c == 'X')
+		return (img[5]);
 	else
 		return (img[4]);
 }
@@ -64,12 +66,12 @@ int	ft_mlx_destroy_image(void *mlx, void **img, int i)
 int	ft_mlx_new_image(void *mlx, void *win, char **map)
 {
 	int		i;
-	void	*img[5];
+	void	*img[6];
 
 	img[0] = mlx_xpm_file_to_image(mlx, "assets/sExit.xpm", &i, &i);
 	if (!img[0])
 		return (1);
-	img[1] = mlx_xpm_file_to_image(mlx, "assets/sKey.xpm", &i, &i);
+	img[1] = mlx_xpm_file_to_image(mlx, "assets/sKey0.xpm", &i, &i);
 	if (!img[1])
 		return (ft_mlx_destroy_image(mlx, img, 0));
 	img[2] = mlx_xpm_file_to_image(mlx, "assets/sPlayer.xpm", &i, &i);
@@ -81,8 +83,11 @@ int	ft_mlx_new_image(void *mlx, void *win, char **map)
 	img[4] = mlx_xpm_file_to_image(mlx, "assets/sWall.xpm", &i, &i);
 	if (!img[4])
 		return (ft_mlx_destroy_image(mlx, img, 3));
+	img[5] = mlx_xpm_file_to_image(mlx, "assets/sEnnemie.xpm", &i, &i);
+	if (!img[5])
+		return (ft_mlx_destroy_image(mlx, img, 4));
 	ft_put_image(mlx, win, map, img);
 	ft_mlx_string_put(mlx, win, "0");
-	ft_mlx_destroy_image(mlx, img, 4);
+	ft_mlx_destroy_image(mlx, img, 5);
 	return (0);
 }

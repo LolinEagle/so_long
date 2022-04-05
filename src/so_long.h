@@ -42,39 +42,49 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
-	void	*img[4];
+	void	*img[8];
 	char	**map;
 	int		*pxy;
 }			t_mlx;
 
-// ft_graphical.c	5 functions
+// ft_bonus.c			3 functions
+void	ft_next_frame_key(t_mlx *mlx);
+void	ft_move_ennemie(t_mlx *mlx);
+
+// ft_graphical.c		5 functions
 void	ft_mlx_string_put(void *mlx, void *win, char *str);
 int		ft_mlx_destroy_image(void *mlx, void **img, int i);
 int		ft_mlx_new_image(void *mlx, void *win, char **map);
 
-// ft_map_is_ok.c	5 functions
+// ft_map_is_ok.c		5 functions
 int		ft_map_is_ok(char **map, t_axe *wh);
 
-// ft_map.c			5 functions
+// ft_map.c				5 functions
 char	**ft_map(char *av, t_axe *wh);
 
-// ft_move.c		5 functions
+// ft_move.c			5 functions
 int		ft_move_up(char *sc, t_mlx *mlx, int *i);
 int		ft_move_left(char *sc, t_mlx *mlx, int *i);
 int		ft_move_down(char *sc, t_mlx *mlx, int *i);
 int		ft_move_right(char *sc, t_mlx *mlx, int *i);
 
-// so_long.c		5 functions
-int		so_long(void *mlx, void *win, char **map);
+// ft_move_ennemie.c	5 functions
+void	ft_move_ennemie_up(t_mlx *mlx, t_axe *xy, int *j);
+void	ft_move_ennemie_down(t_mlx *mlx, t_axe *xy, int *j);
+//
+//
 
-// ft_init.c		4 functions
+// ft_init.c			5 functions
 t_axe	*ft_axenew(void);
 t_mlx	*ft_mlxnew(void *mlx, void *win, char **map);
 
-// ft_main.c		2 functions
+// ft_main.c			2 functions
 int		ft_free_mlx(void *mlx);
 int		ft_free(void *mlx, void *win, char **map);
 
-// main.c			5 functions
+// so_long.c			5 functions
+int		so_long(void *mlx, void *win, char **map);
+
+// main.c				5 functions
 
 #endif

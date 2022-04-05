@@ -25,11 +25,8 @@ void	ft_move(char *sc, t_mlx *mlx, int *i)
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[0],
 			TILE * mlx->pxy[X], TILE * mlx->pxy[Y]);
 	else if (*sc == 'C')
-	{
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[2],
 			TILE * mlx->pxy[X], TILE * mlx->pxy[Y]);
-		mlx->map[mlx->pxy[Y]][mlx->pxy[X]] = '0';
-	}
 	else
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[2],
 			TILE * mlx->pxy[X], TILE * mlx->pxy[Y]);
@@ -40,7 +37,10 @@ int	ft_move_up(char *sc, t_mlx *mlx, int *i)
 	ft_move(sc, mlx, i);
 	*sc = mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]];
 	if (mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]] == 'C')
+	{
+		mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]] = '0';
 		mlx->pxy[C]--;
+	}
 	else if (mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]] == 'X')
 		return (1);
 	else if (mlx->map[mlx->pxy[Y] - 1][mlx->pxy[X]] == 'E' && mlx->pxy[2] == 0)
@@ -48,6 +48,7 @@ int	ft_move_up(char *sc, t_mlx *mlx, int *i)
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[1],
 		TILE * (mlx->pxy[X]), TILE * (mlx->pxy[Y] - 1));
 	mlx->pxy[Y]--;
+	ft_move_ennemie(mlx);
 	return (0);
 }
 
@@ -56,7 +57,10 @@ int	ft_move_left(char *sc, t_mlx *mlx, int *i)
 	ft_move(sc, mlx, i);
 	*sc = mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1];
 	if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1] == 'C')
+	{
+		mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1] = '0';
 		mlx->pxy[C]--;
+	}
 	else if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1] == 'X')
 		return (1);
 	else if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] - 1] == 'E' && mlx->pxy[2] == 0)
@@ -64,6 +68,7 @@ int	ft_move_left(char *sc, t_mlx *mlx, int *i)
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[1],
 		TILE * (mlx->pxy[X] - 1), TILE * mlx->pxy[Y]);
 	mlx->pxy[X]--;
+	ft_move_ennemie(mlx);
 	return (0);
 }
 
@@ -72,7 +77,10 @@ int	ft_move_down(char *sc, t_mlx *mlx, int *i)
 	ft_move(sc, mlx, i);
 	*sc = mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]];
 	if (mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]] == 'C')
+	{
+		mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]] = '0';
 		mlx->pxy[C]--;
+	}
 	else if (mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]] == 'X')
 		return (1);
 	else if (mlx->map[mlx->pxy[Y] + 1][mlx->pxy[X]] == 'E' && mlx->pxy[2] == 0)
@@ -80,6 +88,7 @@ int	ft_move_down(char *sc, t_mlx *mlx, int *i)
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[1],
 		TILE * mlx->pxy[X], TILE * (mlx->pxy[Y] + 1));
 	mlx->pxy[Y]++;
+	ft_move_ennemie(mlx);
 	return (0);
 }
 
@@ -88,7 +97,10 @@ int	ft_move_right(char *sc, t_mlx *mlx, int *i)
 	ft_move(sc, mlx, i);
 	*sc = mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1];
 	if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1] == 'C')
+	{
+		mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1] = '0';
 		mlx->pxy[C]--;
+	}
 	else if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1] == 'X')
 		return (1);
 	else if (mlx->map[mlx->pxy[Y]][mlx->pxy[X] + 1] == 'E' && mlx->pxy[2] == 0)
@@ -96,5 +108,6 @@ int	ft_move_right(char *sc, t_mlx *mlx, int *i)
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[1],
 		TILE * (mlx->pxy[X] + 1), TILE * mlx->pxy[Y]);
 	mlx->pxy[X]++;
+	ft_move_ennemie(mlx);
 	return (0);
 }

@@ -54,7 +54,13 @@ int	ft_close(void *mlx)
 
 int	ft_sprite_animations(t_mlx *mlx)
 {
-	(void)mlx;
+	static unsigned int	i = 0;
+
+	if (i > 4294966000)
+		i = 0;
+	i++;
+	if (i % 2000 == 0)
+		ft_next_frame_key(mlx);
 	return (0);
 }
 
@@ -69,7 +75,7 @@ int	so_long(void *mlx, void *win, char **map)
 	mlx_hook(win, 17, 0, ft_close, mlx);
 	mlx_loop_hook(mlx, ft_sprite_animations, so_long);
 	mlx_loop(mlx);
-	ft_mlx_destroy_image(so_long->mlx, so_long->img, 3);
+	ft_mlx_destroy_image(so_long->mlx, so_long->img, 7);
 	free(so_long->pxy);
 	free(so_long);
 	ft_free(mlx, win, map);

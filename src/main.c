@@ -60,7 +60,11 @@ void	*ft_win(void *mlx, t_axe *wh)
 	res = mlx_new_window(mlx, TILE * wh->x, TILE * wh->y, "so_long");
 	mlx_get_screen_size(mlx, &sizex, &sizey);
 	if (sizex < TILE * wh->x || sizey < TILE * wh->y)
-		write(1, "Warning\nYouy map is too big.\n", 29);
+	{
+		write(1, "Error\nYouy map is too big.\n", 27);
+		mlx_destroy_window(mlx, res);
+		res = NULL;
+	}
 	free(wh);
 	return (res);
 }

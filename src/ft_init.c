@@ -61,10 +61,38 @@ void	*ft_mlx_destroy_image_ptr(void *mlx, void **img, t_mlx *res, int i)
 	return (NULL);
 }
 
+void	*ft_mlx_xpm_file_to_image(void *mlx, t_mlx *res, int i)
+{
+	res->img[0] = mlx_xpm_file_to_image(mlx, "assets/sExit.xpm", &i, &i);
+	if (!res->img[0])
+		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, -1));
+	res->img[1] = mlx_xpm_file_to_image(mlx, "assets/sPlayer.xpm", &i, &i);
+	if (!res->img[1])
+		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, 0));
+	res->img[2] = mlx_xpm_file_to_image(mlx, "assets/sTile.xpm", &i, &i);
+	if (!res->img[2])
+		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, 1));
+	res->img[3] = mlx_xpm_file_to_image(mlx, "assets/sWall.xpm", &i, &i);
+	if (!res->img[3])
+		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, 2));
+	res->img[4] = mlx_xpm_file_to_image(mlx, "assets/sEnnemie.xpm", &i, &i);
+	if (!res->img[4])
+		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, 3));
+	res->img[5] = mlx_xpm_file_to_image(mlx, "assets/sKey0.xpm", &i, &i);
+	if (!res->img[5])
+		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, 4));
+	res->img[6] = mlx_xpm_file_to_image(mlx, "assets/sKey1.xpm", &i, &i);
+	if (!res->img[6])
+		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, 5));
+	res->img[7] = mlx_xpm_file_to_image(mlx, "assets/sKey2.xpm", &i, &i);
+	if (!res->img[7])
+		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, 6));
+	return (res->img[7]);
+}
+
 t_mlx	*ft_mlxnew(void *mlx, void *win, char **map)
 {
 	t_mlx	*res;
-	int		nul;
 
 	res = malloc(sizeof(t_mlx));
 	if (!res)
@@ -72,18 +100,8 @@ t_mlx	*ft_mlxnew(void *mlx, void *win, char **map)
 	res->mlx = mlx;
 	res->win = win;
 	res->map = map;
-	res->img[0] = mlx_xpm_file_to_image(mlx, "assets/sExit.xpm", &nul, &nul);
-	if (!res->img[0])
-		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, -1));
-	res->img[1] = mlx_xpm_file_to_image(mlx, "assets/sPlayer.xpm", &nul, &nul);
-	if (!res->img[1])
-		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, 0));
-	res->img[2] = mlx_xpm_file_to_image(mlx, "assets/sTile.xpm", &nul, &nul);
-	if (!res->img[2])
-		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, 1));
-	res->img[3] = mlx_xpm_file_to_image(mlx, "assets/sWall.xpm", &nul, &nul);
-	if (!res->img[3])
-		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, 2));
+	if (!ft_mlx_xpm_file_to_image(mlx, res, 0))
+		return (NULL);
 	res->pxy = ft_findplayer(map);
 	if (!res->pxy)
 		return (ft_mlx_destroy_image_ptr(mlx, res->img, res, 3));
