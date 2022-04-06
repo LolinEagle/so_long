@@ -48,31 +48,46 @@ void	ft_next_frame_key(t_mlx *mlx)
 	}
 }
 
+void	ft_move_ennemie_bis(t_mlx *mlx, t_axe *xy)
+{
+	static int	j = 0;
+	static char	sc = '0';
+
+	if (xy->z < 4)
+	{
+		if (j == 0)
+			ft_move_ennemie_up(mlx, xy, &j, &sc);
+		else if (j == 1)
+			ft_move_ennemie_right(mlx, xy, &j, &sc);
+		else if (j == 2)
+			ft_move_ennemie_down(mlx, xy, &j, &sc);
+		else if (j == 3)
+			ft_move_ennemie_left(mlx, xy, &j, &sc);
+	}
+}
+
 void	ft_move_ennemie(t_mlx *mlx)
 {
-	static int	i = 0;
-	static int	j = 0;
-	// static char	sc = '0';
+	static int	p_move = 0;
 	t_axe		*xy;
 
-	i++;
+	p_move++;
 	xy = ft_axenew();
-	while (mlx->map[xy->y++] && i % 2 == 0)
+	while (mlx->map[xy->y] && p_move % 2 == 0)
 	{
-		while (mlx->map[xy->y][xy->x++] && mlx->map[xy->y][xy->x] != '\n')
+		xy->x = 1;
+		while (mlx->map[xy->y][xy->x] && mlx->map[xy->y][xy->x] != '\n')
 		{
 			if (mlx->map[xy->y][xy->x] == 'X')
 			{
-				if (j == 0)
-					ft_move_ennemie_up(mlx, xy, &j);
-				else if (j == 1)
-					j++;
-				else if (j == 2)
-					ft_move_ennemie_down(mlx, xy, &j);
-				else if (j == 3)
-					j++;
+				ft_move_ennemie_bis(mlx, xy);
+				break ;
 			}
+			xy->x++;
 		}
+		if (xy->z > 3)
+			break ;
+		xy->y++;
 	}
 	free(xy);
 }

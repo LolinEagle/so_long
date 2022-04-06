@@ -47,6 +47,8 @@ fclean:clean
 
 re:fclean all
 
+bonus:${NAME}
+
 mac:${LIBFT} ${OBJS}
 	${CC} -o ${NAME} ${CFLAGS} ${MLXH} ${OBJS} ${LIBFT} ${MLXS}
 
