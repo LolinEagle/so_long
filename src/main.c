@@ -33,7 +33,7 @@ int	ft_isber(char *av)
 		j = 0;
 		while (ber[j] && av[i + j] == ber[j])
 			j++;
-		if (!av[i + j])
+		if (!ber[j] && !av[i + j])
 			return (0);
 	}
 	return (write(1, "Not a valid .ber file.\n", 23));

@@ -16,7 +16,7 @@ void	ft_move_ennemie_back(t_mlx *mlx, t_axe *xy, char *sc)
 {
 	mlx->map[xy->y][xy->x] = '0';
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[2],
-			TILE * (xy->x), TILE * (xy->y));
+		TILE * (xy->x), TILE * (xy->y));
 	*sc = '0';
 	xy->z = 4;
 }
