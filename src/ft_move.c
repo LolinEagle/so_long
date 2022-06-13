@@ -16,7 +16,7 @@ void	ft_move(char *sc, t_mlx *mlx, int *i)
 {
 	char	*str;
 
-	ft_printf("%i\n", ++*i);
+	ft_printf("\r%i", ++*i);
 	str = ft_itoa(*i);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img[3], 0, 0);
 	ft_mlx_string_put(mlx->mlx, mlx->win, str);

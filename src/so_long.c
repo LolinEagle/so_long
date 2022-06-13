@@ -59,7 +59,7 @@ int	ft_sprite_animations(t_mlx *mlx)
 	if (i > 4294966000)
 		i = 0;
 	i++;
-	if (i % 2000 == 0)
+	if (i % 5000 == 0)
 		ft_next_frame_key(mlx);
 	return (0);
 }
@@ -79,5 +79,6 @@ int	so_long(void *mlx, void *win, char **map)
 	free(so_long->pxy);
 	free(so_long);
 	ft_free(mlx, win, map);
+	write(1, "\n", 1);
 	return (0);
 }
